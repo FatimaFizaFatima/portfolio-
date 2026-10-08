@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fiza — AI Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0A0A0A;
+      --bg2: #111111;
+      --bg3: #181818;
+      --bg4: #202020;
+      --accent: #E8F4F0;
+      --accent2: #7DCEA0;
+      --accent-dim: rgba(125,206,160,0.08);
+      --accent-border: rgba(125,206,160,0.2);
+      --text: #F2F0ED;
+      --text2: #888580;
+      --text3: #555250;
+      --border: rgba(255,255,255,0.05);
+      --border2: rgba(255,255,255,0.08);
+      --r: 6px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: env(safe-area-inset-top,0px);
+      padding-bottom: env(safe-area-inset-bottom,0px);
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: env(safe-area-inset-top,0px);
+      left: 0; right: 0;
+      z-index: 100;
+      padding: 0 3rem;
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--accent2); }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text3);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent2);
+      border: 1px solid var(--accent-border);
+      padding: 7px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent-dim); color: var(--accent2); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 10rem 3rem 6rem;
+      position: relative;
+    }
+    .hero-bg-text {
+      position: absolute;
+      top: 50%;
+      right: -2%;
+      transform: translateY(-50%);
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(8rem, 18vw, 20rem);
+      font-weight: 800;
+      color: rgba(255,255,255,0.018);
+      letter-spacing: -0.04em;
+      user-select: none;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .hero-inner { max-width: 1080px; margin: 0 auto; width: 100%; position: relative; }
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent2);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.04em;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+    .hero-name .line2 {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.25);
+    }
+    .hero-desc {
+      font-size: 16px;
+      color: var(--text2);
+      max-width: 480px;
+      line-height: 1.85;
+      font-weight: 300;
+      margin-bottom: 3rem;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--text);
+      color: var(--bg);
+      border-radius: 4px;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: transparent;
+      color: var(--text2);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      font-size: 13.5px;
+      font-weight: 400;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+    .hero-meta {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+    .meta-item-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .meta-item-num span { color: var(--accent2); }
+    .meta-item-label { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+    /* SECTIONS */
+    .section { padding: 100px 3rem; }
+    .container { max-width: 1080px; margin: 0 auto; }
+    .section-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ABOUT */
+    #about { background: var(--bg2); }
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 5rem;
+    }
+    .about-text p {
+      font-size: 15.5px;
+      color: var(--text2);
+      line-height: 1.9;
+      font-weight: 300;
+      margin-bottom: 1.3rem;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-cards { display: flex; flex-direction: column; gap: 1px; }
+    .about-card {
+      background: var(--bg3);
+      padding: 1.1rem 1.3rem;
+      border-left: 2px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .about-card:hover { border-left-color: var(--accent2); }
+    .about-card-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 5px;
+    }
+    .about-card-value {
+      font-size: 13.5px;
+      color: var(--text2);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--bg); }
+    .filter-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 6px 14px;
+      border-radius: 3px;
+      border: 1px solid var(--border2);
+      background: transparent;
+      color: var(--text3);
+      cursor: pointer;
+      transition: all 0.18s;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.03em;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .project-card {
+      background: var(--bg);
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .project-card:hover { background: var(--bg2); }
+    .project-card.hidden { display: none; }
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.3rem;
+    }
+    .project-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text3);
+      letter-spacing: 0.06em;
+    }
+    .project-type {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+    .type-ai { background: rgba(99,102,241,0.1); color: #A5B4FC; }
+    .type-backend { background: rgba(125,206,160,0.1); color: #7DCEA0; }
+    .type-mobile { background: rgba(251,191,36,0.1); color: #FCD34D; }
+    .type-research { background: rgba(167,139,250,0.1); color: #C4B5FD; }
+    .project-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .project-desc {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.75;
+      flex: 1;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 4px; }
+    .stack-tag {
+      font-size: 10.5px;
+      background: var(--bg3);
+      color: var(--text3);
+      padding: 3px 8px;
+      border-radius: 2px;
+      font-weight: 400;
+    }
+
+    /* EXPERIENCE */
+    #experience { background: var(--bg2); }
+    .exp-list { border-top: 1px solid var(--border); }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-left {}
+    .exp-date {
+      font-size: 12.5px;
+      color: var(--text3);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    .exp-badge {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .exp-role {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+      letter-spacing: -0.01em;
+    }
+    .exp-company {
+      font-size: 13px;
+      color: var(--accent2);
+      margin-bottom: 0.9rem;
+    }
+    .exp-desc {
+      font-size: 13.5px;
+      color: var(--text2);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* CONTACT */
+    #contact { background: var(--bg); }
+    .contact-center {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .contact-center h2 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin-bottom: 1.2rem;
+    }
+    .contact-center p {
+      font-size: 15.5px;
+      color: var(--text2);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+    }
+    .contact-email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: var(--text);
+      color: var(--bg);
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 3rem;
+    }
+    .contact-email-btn:hover { background: var(--accent); transform: translateY(-1px); }
+    .contact-socials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .social-link {
+      font-size: 13px;
+      color: var(--text3);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .social-link:hover { color: var(--text); }
+    .social-link-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); }
+    .social-divider { width: 1px; height: 30px; background: var(--border2); }
+
+    footer {
+      background: var(--bg2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 3rem;
+      font-size: 12px;
+      color: var(--text3);
+      border-top: 1px solid var(--border);
+      max-width: 100%;
+    }
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 720px) {
+      nav { padding: 0 1.5rem; }
+      .section { padding: 70px 1.5rem; }
+      #hero { padding: 8rem 1.5rem 5rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.6rem; }
+      .hero-meta { gap: 2rem; flex-wrap: wrap; }
+      .nav-links { gap: 1.5rem; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero-bg-text { display: none; }
+      footer { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">F<span>.</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="mailto:fizafatimafiza1206@gmail.com" class="nav-cta">Hire Me</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">AI</div>
+  <div class="hero-inner">
+    <div class="hero-status">
+      <div class="status-dot"></div>
+      Available for opportunities
+    </div>
+    <h1 class="hero-name">
+      Fiza<br>
+      <span class="line2">AI Engineer</span>
+    </h1>
+    <p class="hero-desc">CS graduate from Pakistan currently learning AI engineering through building. RAG pipelines, agentic systems, production APIs and mobile apps. Still learning but building real things while I do.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Projects →</a>
+      <a href="https://github.com/FatimaFizaFatima" target="_blank" class="btn-secondary">GitHub ↗</a>
+      <a href="https://www.kaggle.com/fizafizafiza" target="_blank" class="btn-secondary">Kaggle ↗</a>
+    </div>
+    <div class="hero-meta">
+      <div>
+        <div class="meta-item-num">3.77<span>/4</span></div>
+        <div class="meta-item-label">CGPA</div>
+      </div>
+      <div>
+        <div class="meta-item-num">1<span>st</span></div>
+        <div class="meta-item-label">Class Rank</div>
+      </div>
+      <div>
+        <div class="meta-item-num">6<span>+</span></div>
+        <div class="meta-item-label">Projects Built</div>
+      </div>
+      <div>
+        <div class="meta-item-num">99<span>%</span></div>
+        <div class="meta-item-label">FYP Accuracy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <span class="section-tag">About</span>
+    <h2>A bit about me</h2>
+    <div class="about-layout">
+      <div class="about-text">
+        <p>I graduated in Computer Science from Islamia University of Bahawalpur in 2024. Since then I have been learning AI engineering by actually building things rather than just studying them.</p>
+        <p>My work covers agentic AI systems, RAG pipelines, backend APIs and mobile apps. I am currently interning as an AI Engineer through the Chief Minister IT Internship Program by the Punjab IT Board at Semantic Solutions Private Limited.</p>
+        <p>I am also working independently on a cardiovascular comorbidity prediction system using real clinical data — the direction I want to take further at Master's level.</p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card">
+          <div class="about-card-label">Education</div>
+          <div class="about-card-value">BSc Computer Science, IUB. CGPA 3.77, graduated first in program.</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Currently</div>
+          <div class="about-card-value">AI Engineer Intern at Semantic Solutions via CMITIP, Punjab IT Board</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Interests</div>
+          <div class="about-card-value">Agentic AI, RAG systems, Edge AI for low-resource environments, Healthcare ML</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Looking for</div>
+          <div class="about-card-value">Research opportunities and Master's programs in AI and Data Science</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="container">
+    <span class="section-tag">Projects</span>
+    <h2>What I have built</h2>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterProjects('all',this)">All</button>
+      <button class="filter-btn" onclick="filterProjects('ai',this)">AI and RAG</button>
+      <button class="filter-btn" onclick="filterProjects('research',this)">Research</button>
+      <button class="filter-btn" onclick="filterProjects('mobile',this)">Mobile</button>
+      <button class="filter-btn" onclick="filterProjects('backend',this)">Backend</button>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card" data-cat="ai">
+        <div class="project-top">
+          <span class="project-num">01</span>
+          <span class="project-type type-ai">Agentic AI</span>
+        </div>
+        <div class="project-name">Corrective Health RAG</div>
+        <div class="project-desc">Answers medical questions using official WHO and NIMH documents. Uses LangGraph corrective RAG pattern — if retrieved documents are not relevant the system rewrites the query and tries again automatically.</div>
+        <div class="project-stack">
+          <span class="stack-tag">LangGraph</span>
+          <span class="stack-tag">LangChain</span>
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">PostgreSQL</span>
+          <span class="stack-tag">ChromaDB</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="ai">
+        <div class="project-top">
+          <span class="project-num">02</span>
+          <span class="project-type type-ai">AI Infrastructure</span>
+        </div>
+        <div class="project-name">RouteGuard — AI Gateway</div>
+        <div class="project-desc">One unified endpoint that routes requests to different LLMs based on task type, cost and availability. Falls back automatically if a model fails. Logs every request with tokens, cost and latency.</div>
+        <div class="project-stack">
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">Ollama</span>
+          <span class="stack-tag">Pydantic</span>
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Swagger</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="ai">
+        <div class="project-top">
+          <span class="project-num">03</span>
+          <span class="project-type type-ai">RAG</span>
+        </div>
+        <div class="project-name">DocuMind RAG</div>
+        <div class="project-desc">Upload any document, ask questions, get answers with exact page citations. Includes RAGAS evaluation measuring context precision, recall, faithfulness and answer relevancy. Does not hallucinate when context is missing.</div>
+        <div class="project-stack">
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">ChromaDB</span>
+          <span class="stack-tag">LangChain</span>
+          <span class="stack-tag">RAGAS</span>
+          <span class="stack-tag">Swagger</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="research">
+        <div class="project-top">
+          <span class="project-num">04</span>
+          <span class="project-type type-research">Research</span>
+        </div>
+        <div class="project-name">Cerebral Stroke Prediction</div>
+        <div class="project-desc">Final year research on stroke risk detection using imbalanced clinical datasets of 47,000 instances. Applied SMOTE resampling and evaluated multiple ML classifiers. Achieved 99% accuracy with Extra Trees Classifier.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Scikit-learn</span>
+          <span class="stack-tag">SMOTE</span>
+          <span class="stack-tag">Extra Trees</span>
+          <span class="stack-tag">Pandas</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="backend">
+        <div class="project-top">
+          <span class="project-num">05</span>
+          <span class="project-type type-backend">Production</span>
+        </div>
+        <div class="project-name">CarWise Backend</div>
+        <div class="project-desc">Production API for a car servicing marketplace with JWT auth, Google OAuth, push notifications, real-time chat and complete security. Deployed to AWS EC2 with CI/CD via GitHub Actions. Live in production.</div>
+        <div class="project-stack">
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">PostgreSQL</span>
+          <span class="stack-tag">AWS EC2</span>
+          <span class="stack-tag">GitHub Actions</span>
+          <span class="stack-tag">JWT</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="mobile">
+        <div class="project-top">
+          <span class="project-num">06</span>
+          <span class="project-type type-mobile">Flutter</span>
+        </div>
+        <div class="project-name">Webtoon Info App</div>
+        <div class="project-desc">Share a URL from any browser and the app uses AI to automatically extract the title, cover image and chapter details. Supports tags, reading reminders and offline storage via SQLite.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Flutter</span>
+          <span class="stack-tag">Dart</span>
+          <span class="stack-tag">AI API</span>
+          <span class="stack-tag">SQLite</span>
+          <span class="stack-tag">Firebase</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="container">
+    <span class="section-tag">Experience</span>
+    <h2>Where I have worked</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-left">
+          <div class="exp-date">Jul 2026 — Present</div>
+          <div class="exp-badge">Current</div>
+        </div>
+        <div>
+          <div class="exp-role">AI Engineer Intern</div>
+          <div class="exp-company">Semantic Solutions — CMITIP, Punjab IT Board</div>
+          <div class="exp-desc">Building agentic AI applications including RAG pipelines with LangGraph and LangChain, FastAPI backends and automated AI workflows. Selected through the Chief Minister IT Internship Program, a competitive government initiative.</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-left">
+          <div class="exp-date">Jan 2025 — Jul 2025</div>
+        </div>
+        <div>
+          <div class="exp-role">Mobile Application Developer</div>
+          <div class="exp-company">MercurySols, Rahim Yar Khan</div>
+          <div class="exp-desc">Built cross-platform mobile apps with Flutter and Dart. Projects included LoopJam, a high-performance event media platform with real-time synchronization, and Story Vault, a Flutter app with AI-powered metadata extraction.</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-left">
+          <div class="exp-date">Jul 2024 — Present</div>
+          <div class="exp-badge">Current</div>
+        </div>
+        <div>
+          <div class="exp-role">Resource Manager</div>
+          <div class="exp-company">Field Work Technologies Ltd, London UK (Remote)</div>
+          <div class="exp-desc">Coordinating international technical teams across time zones, managing project delivery and cross-cultural communication remotely from Pakistan.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-center">
+      <span class="section-tag" style="display:block;margin-bottom:0.8rem;">Contact</span>
+      <h2>Let's work<br>together</h2>
+      <p>Open to work opportunities, research collaborations and Master's programs in AI. Feel free to reach out directly.</p>
+      <a href="mailto:fizafatimafiza1206@gmail.com" class="contact-email-btn">
+        fizafatimafiza1206@gmail.com →
+      </a>
+      <div class="contact-socials">
+        <a href="https://github.com/FatimaFizaFatima" target="_blank" class="social-link">
+          <span>github.com/FatimaFizaFatima</span>
+          <span class="social-link-label">GitHub</span>
+        </a>
+        <div class="social-divider"></div>
+        <a href="https://www.kaggle.com/fizafizafiza" target="_blank" class="social-link">
+          <span>kaggle.com/fizafizafiza</span>
+          <span class="social-link-label">Kaggle</span>
+        </a>
+        <div class="social-divider"></div>
+        <a href="tel:+923311345472" class="social-link">
+          <span>+92 331 134 5472</span>
+          <span class="social-link-label">Phone</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span>Built by Fiza · 2026</span>
+    <span>Rahim Yar Khan, Pakistan</span>
+  </div>
+</footer>
+
+<script>
+  function filterProjects(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.project-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
